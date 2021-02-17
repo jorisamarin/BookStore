@@ -1,9 +1,17 @@
 package fi.hh.swd20.BookStore.Domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Book {
 
 	//title, author, year, isbn, price
-	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long id;
 	private String title;
 	private String author;
 	private int year;
@@ -20,14 +28,13 @@ public class Book {
 	}
 	
 	public Book() {
-		super();
-		this.title = null;
-		this.author = null;
-		this.year = 0;
-		this.isbn = null;
-		this.price = 0;
+	
 	}
 
+	public long getId () {
+		return id;
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -46,6 +53,10 @@ public class Book {
 
 	public double getPrice() {
 		return price;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public void setTitle(String title) {
