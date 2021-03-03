@@ -16,30 +16,21 @@ public class BookStoreApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BookStoreApplication.class, args);
 	}
-	//title, author, year, isbn, price
+
 	@Bean
-	public CommandLineRunner demo(BookRepository repository) {
-	return (args) -> {
-     
-	 Book b1 = new Book ("Hohto", "Stephen King", 1977, "951-0-12904-6", 20.50);
-	 Book b2 = new Book ("Tohtori Uni", "Stephen King", 2013, "978-951-31-7332-6", 14.99);
-	 
-	 repository.save(b1);
-	 repository.save(b2);
-	};
-	}
-	
-	@Bean
-	public CommandLineRunner test(CategoryRepository repository) {
+	public CommandLineRunner test(CategoryRepository crepository, BookRepository brepository) {
 		return (args) -> {
-		
-		Category c1 = new Category ("Horror");
-		Category c2 = new Category ("Sci-fi");
-		
-		repository.save(c1);
-		repository.save(c2);
-		
-		
-	};
+
+			Category c1 = new Category("Horror");
+			Category c2 = new Category("Sci-fi");
+
+			crepository.save(c1);
+			crepository.save(c2);
+
+			brepository.save(new Book("Hohto", "Stephen King", 1977, "951-0-12904-6", 20.50, c1));
+			brepository.save(new Book("Tohtori Uni", "Stephen King", 2013, "978-951-31-7332-6", 14.99, c2));
+			
+			
+		};
 	}
 }
