@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.boot.CommandLineRunner;
 import fi.hh.swd20.BookStore.Domain.BookRepository;
 import fi.hh.swd20.BookStore.Domain.Book;
+import fi.hh.swd20.BookStore.Domain.Category;
+import fi.hh.swd20.BookStore.Domain.CategoryRepository;
 
 @SpringBootApplication
 public class BookStoreApplication {
@@ -27,4 +29,17 @@ public class BookStoreApplication {
 	};
 	}
 	
+	@Bean
+	public CommandLineRunner test(CategoryRepository repository) {
+		return (args) -> {
+		
+		Category c1 = new Category ("Horror");
+		Category c2 = new Category ("Sci-fi");
+		
+		repository.save(c1);
+		repository.save(c2);
+		
+		
+	};
+	}
 }

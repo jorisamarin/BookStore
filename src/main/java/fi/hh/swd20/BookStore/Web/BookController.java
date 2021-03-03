@@ -31,19 +31,19 @@ public class BookController {
 	
 	@RequestMapping(value = "/books", method = RequestMethod.GET)
 	public String getBooks(Model model) {
-			List<Book> books =  (List<Book>) bookRepository.findAll(); // haeta tietokannasta autot
-			model.addAttribute("books", books); // välitetään autolista templatelle model-olion avulla
-			return "booklist"; // DispatherServlet saa tämän template-nimen ja kutsuu seuraavaksi carlist.html-templatea,
-								// joka prosessoidaan palvelimella
+			List<Book> books =  (List<Book>) bookRepository.findAll();
+			model.addAttribute("books", books); // välitetään kirjalista templatelle model-olion avulla
+			return "booklist"; 
+								
 	}
 	
-	@RequestMapping(value = "/newbook", method = RequestMethod.GET)
+	@RequestMapping(value = "/addbook", method = RequestMethod.GET)
 	public String getNewBookForm(Model model) {
-		model.addAttribute("book", new Book()); // "tyhjä" auto-olio
-		return "bookform";
+		model.addAttribute("book", new Book()); // "tyhjä" kirja-olio
+		return "addbook";
 	}
 	
-	@RequestMapping(value = "/savebook", method = RequestMethod.POST)
+	@RequestMapping(value = "/addbook", method = RequestMethod.POST)
 	public String saveBook(@ModelAttribute Book book) {
 		// talletetaan yhden auton tiedot tietokantaan
 		bookRepository.save(book);
