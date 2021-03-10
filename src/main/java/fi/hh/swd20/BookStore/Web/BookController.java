@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import fi.hh.swd20.BookStore.Domain.BookRepository;
+import fi.hh.swd20.BookStore.Domain.Category;
+import fi.hh.swd20.BookStore.Domain.CategoryRepository;
 import fi.hh.swd20.BookStore.Domain.Book;
 
 @Controller
@@ -29,23 +31,26 @@ public class BookController {
 	@Autowired
 	BookRepository bookRepository; 
 	
+	@Autowired
+	CategoryRepository categoryRepository;
+	
 	@RequestMapping(value = "/books", method = RequestMethod.GET)
 	public String getBooks(Model model) {
 			List<Book> books =  (List<Book>) bookRepository.findAll();
-			model.addAttribute("books", books); // välitetään kirjalista templatelle model-olion avulla
+			model.addAttribute("books", books); 
 			return "booklist"; 
 								
 	}
 	
 	@RequestMapping(value = "/addbook", method = RequestMethod.GET)
 	public String getNewBookForm(Model model) {
-		model.addAttribute("book", new Book()); // "tyhjä" kirja-olio
+		model.addAttribute("book", new Book());
+		model.addAttribute("categories", categoryRepository.findAll());
 		return "addbook";
 	}
 	
 	@RequestMapping(value = "/addbook", method = RequestMethod.POST)
 	public String saveBook(@ModelAttribute Book book) {
-		// talletetaan yhden auton tiedot tietokantaan
 		bookRepository.save(book);
 		return "redirect:/books";
 	}
@@ -55,6 +60,20 @@ public class BookController {
 		bookRepository.deleteById(bookId);
 		return "redirect:../books";
 	}
+	
+	@RequestMapping(value = "/editbook/{id}", method = RequestMethod.GET)
+	public String editBook(@PathVariable("id") Long bookId, Model model) {
+		model.addAttribute("book", bookRepository.findById(bookId));
+		model.addAttribute("categories", categoryRepository.findAll());
+		return "editbook";
+	}
+	
+	@RequestMapping(value = "/editbook/{id}", method = RequestMethod.POST)
+	public String saveEdited(@ModelAttribute Book book) {
+		bookRepository.save(book);
+		return "redirect:../books";
+	}
+	  
 
 	
 }

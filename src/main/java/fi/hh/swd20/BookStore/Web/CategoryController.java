@@ -20,7 +20,7 @@ import fi.hh.swd20.BookStore.Domain.CategoryRepository;
 public class CategoryController {
 	
 	@Autowired
-	CategoryRepository categoryRepository;
+	private CategoryRepository categoryRepository;
 	
 	@RequestMapping(value = "/categories", method = RequestMethod.GET)
 	public String getCategories(Model model) {
@@ -35,6 +35,7 @@ public class CategoryController {
 		model.addAttribute("category", new Category());
 		return "addcategory";
 	}
+	   
 	
 	@RequestMapping(value = "/addcategory", method = RequestMethod.POST)
 	public String saveCategory(@ModelAttribute Category category) {
