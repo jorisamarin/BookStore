@@ -28,7 +28,7 @@ public class BookController {
 	@RequestMapping("/index")
 	public String index() {
 		
-		return "index";
+		return "booklist";
 		
 	}
 	
