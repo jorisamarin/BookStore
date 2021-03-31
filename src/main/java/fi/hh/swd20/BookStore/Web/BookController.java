@@ -25,7 +25,7 @@ import fi.hh.swd20.BookStore.Domain.Book;
 public class BookController {
 	
 
-	@RequestMapping("/index")
+	@RequestMapping("/")
 	public String index() {
 		
 		return "booklist";
